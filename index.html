@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grasshopper Gardens clone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Banner Section -------------------------------------------------------------------------------------------------------------------------------------->
+    <div class="banner">
+        <p>Free local shipping</p>
+    </div>
+    
+    <!-- Header Section -------------------------------------------------------------------------------------------------------------------------------------->
+    <header>
+        <div class="container">
+            <!-- Left: Logo -->
+            <div class="logo">
+                <img src="your-logo-here.png" alt="Logo" />
+            </div>
+
+            <!-- Center: Search Bar -->
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products...">
+            </div>
+
+            <!-- Right: Grow Zone, Question, Account, Favorites, Cart -->
+            <div class="header-widgets">
+                <div class="widget grow-zone">
+                    <a href="#">Grow Zone</a>
+                </div>
+                <div class="widget question">
+                    <a href="#">Have a Question?</a>
+                </div>
+                <div class="widget account">
+                    <a href="#">Account</a>
+                </div>
+                <div class="widget favorites">
+                    <a href="#">Favorites</a>
+                </div>
+                <div class="widget cart">
+                    <a href="#">Cart (0)</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+     <!-- Second Navigation Menu -------------------------------------------------------------------------------------------------------------------------------------->
+    <nav class="secondary-nav">
+        <ul>
+            <li><a href="#">Sale</a></li>
+            <li><a href="#">Trees</a></li>
+            <li><a href="#">Shrubs</a></li>
+            <li><a href="#">Perennials</a></li>
+            <li><a href="#">Materials</a></li>
+            <li><a href="#">LawnCare</a></li>
+            <li><a href="#">Landscape Services</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Section: Top Deals ------------------------------------------------------------------------------------------------------------------------------------->
+    <main class="grow bg-primary">
+    <div class="px-0 md:px-6 lg:px-10">
+        
+        <!-- Container for the main banner and the two stacked sections -->
+        <section class="flex w-full flex-col gap-4 md:flex-row md:gap-5 md:rounded-lg">
+            
+            
+            <!-- Large banner section on the left with aspect ratio adjustment -->
+            <a aria-label="Main hero image" class="disable-mobile-highlight aspect-[760/320] overflow-hidden bg-quaternary md:aspect-auto md:w-2/3 md:rounded-lg" href="/collections/sale">
+                <picture>
+                    <source media="(max-width: 767px)" srcset="https://cdn.shopify.com/s/files/1/0059/8835/2052/files/hp-hero-mobile-1-10-8-24.gif?v=1727812061">
+                    <source media="(min-width: 768px)" srcset="https://cdn.shopify.com/s/files/1/0059/8835/2052/files/hp-hero-desktop-1-10-8-24.gif?v=1727812061">
+                    <img src="https://cdn.shopify.com/s/files/1/0059/8835/2052/files/hp-hero-desktop-1-10-8-24.gif?v=1727812061" alt="Top Deals Image" class="h-full w-full object-cover" loading="eager">
+                </picture>
+            </a>
+            
+            <!-- Right side: Two stacked sections with correct aspect ratio -->
+            <div class="flex flex-col gap-4 md:w-1/3">
+                <!-- First section -->
+                <a aria-label="Bestsellers" class="disable-mobile-highlight aspect-[380/160] bg-secondary overflow-hidden rounded-lg" href="/collections/bestsellers">
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="https://cdn.shopify.com/s/files/1/0059/8835/2052/files/hp-hero-mobile-2-10-8-24.webp?v=1727812061">
+                        <source media="(min-width: 768px)" srcset="https://cdn.shopify.com/s/files/1/0059/8835/2052/files/hp-hero-mobile-2-10-8-24.webp?v=1727812061">
+                        <img src="https://cdn.shopify.com/s/files/1/0059/8835/2052/files/hp-hero-mobile-2-10-8-24.webp?v=1727812061" alt="Bestsellers from $19.95" class="h-full w-full object-cover" loading="eager">
+                    </picture>
+                    
+                </a>
+
+                <!-- Second section -->
+                <a aria-label="Deer-resistant" class="disable-mobile-highlight aspect-[380/160] bg-secondary overflow-hidden rounded-lg" href="/collections/deer-resistant">
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="https://cdn.shopify.com/s/files/1/0059/8835/2052/files/hp-hero-mobile-3-10-8-24.webp?v=1727812061">
+                        <source media="(min-width: 768px)" srcset="https://cdn.shopify.com/s/files/1/0059/8835/2052/files/hp-hero-mobile-3-10-8-24.webp?v=1727812061">
+                        <img src="https://cdn.shopify.com/s/files/1/0059/8835/2052/files/hp-hero-mobile-3-10-8-24.webp?v=1727812061" alt="Deer-resistant expert picks" class="h-full w-full object-cover" loading="eager">
+                    </picture>
+                    
+                </a>
+            </div>
+        </section>
+    </div>
+</main>
+<!-- Top deals silder ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+     <!-- Second Section: Top Selling Products -->
+    <div class="px-0 md:px-6 lg:px-10">
+        <section class="py-3 md:py-6">
+            <span class="flex flex-col gap-4">
+                <h2 class="px-4 text-2xl font-bold md:px-0">Top Selling Products</h2>
+
+                <!-- Container for product cards -->
+                <div class="product-list" id="product-list"></div>
+
+            </span>
+        </section>
+    </div>
+<!-- JavaScript to Fetch Top-Selling Products -->
+    <script>
+        // Fetch top-selling products from the backend and display them
+        fetch('/api/top-selling')
+            .then(response => response.json())
+            .then(products => {
+                const productList = document.getElementById('product-list');
+
+                products.forEach(product => {
+                    const productItem = `
+                        <div class="product">
+                            <img src="${product.image}" alt="${product.name}">
+                            <h3>${product.name}</h3>
+                            <p>Price: $${product.price}</p>
+                            <p>Discount: ${product.discount}% OFF</p>
+                            <p>Sales: ${product.sales}</p>
+                        </div>
+                    `;
+                    productList.innerHTML += productItem;
+                });
+            });
+    </script>
+    
+    <!-- More sections can be added below -------------------------------------------------------------------------------------------------------------------------------------->
+
+    <script src="script.js"></script>
+</body>
+</html>
